@@ -29,31 +29,17 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::covr, any::xml2
+          extra-packages: any::covr
           needs: coverage
 
-      - name: Generate coverage report
+      - name: Run coverage and upload to Codecov
         shell: Rscript {0}
-        run: |
-          coverage <- covr::package_coverage()
-          print(coverage)
-          covr::to_cobertura(coverage, filename = "coverage.xml")
-
-      - name: Check Codecov token
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         run: |
-          if [ -z "$CODECOV_TOKEN" ]; then
-            echo "::error::CODECOV_TOKEN repository secret is not set"
-            exit 1
-          fi
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v6
-        with:
-          files: coverage.xml
-          flags: r
-          name: roben-r-coverage
-          fail_ci_if_error: true
-          token: ${{ secrets.CODECOV_TOKEN }}
-          verbose: true
+          if (!nzchar(Sys.getenv("CODECOV_TOKEN"))) {
+            stop("CODECOV_TOKEN repository secret is not set")
+          }
+          coverage <- covr::package_coverage()
+          print(coverage)
+          covr::codecov(coverage = coverage, flags = "r", quiet = FALSE)
