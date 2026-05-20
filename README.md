@@ -11,7 +11,7 @@
 status](https://www.r-pkg.org/badges/version/roben)](https://CRAN.R-project.org/package=roben)
 [![Codecov test
 coverage](https://codecov.io/gh/jrenstat/roben/branch/master/graph/badge.svg)](https://app.codecov.io/gh/jrenstat/roben?branch=master)
-[![R-CMD-check](https://github.com/jrenstat/roben/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jrenstat/roben/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/jrenstat/roben/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master)](https://github.com/jrenstat/roben/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Gene-environment (G×E) interactions have important implications to
@@ -37,8 +37,8 @@ implemented in C++.
 
 <!-- -->
 
-    install.packages("devtools")
-    devtools::install_github("jrenstat/roben")
+    install.packages("remotes")
+    remotes::install_github("jrenstat/roben")
 
 - Released versions of roben are available on CRAN
   [(link)](https://cran.r-project.org/package=roben), and can be

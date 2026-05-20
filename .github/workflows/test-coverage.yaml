@@ -9,7 +9,6 @@ name: test-coverage
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
   test-coverage:
@@ -46,4 +45,4 @@ jobs:
           flags: r
           name: roben-r-coverage
           fail_ci_if_error: true
-          use_oidc: true
+          token: ${{ secrets.CODECOV_TOKEN }}
