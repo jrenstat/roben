@@ -48,7 +48,11 @@ print.GxESelection=function(x, digits = max(3, getOption("digits") - 3),...){
 #' @seealso \code{\link{predict.roben}}
 #' @export
 print.roben.pred=function(x, digits = max(3, getOption("digits") - 3),...){
-  cat("\nPMSE:\n")
-  print(x$error, digits)
+  if(is.null(x$error)){
+    cat("\nPrediction error: NULL\n")
+  }else{
+    cat("\n", names(x$error), ":\n", sep="")
+    print(x$error, digits)
+  }
   cat("\npredicted ", length(x$y.pred), " y (list component y.pred)", sep = "")
 }

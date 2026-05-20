@@ -66,6 +66,7 @@ f(\epsilon_{i}|\nu) = \frac{\nu}{2}\exp\left\{-\nu |\epsilon_{i}|\right\}
 \cr
 
 Both \eqn{X} and \eqn{E} will be centered before the generation of interaction terms, in order to prevent the multicollinearity between main effects and interaction terms.
+The centering values are stored in the fitted object and reused by \code{\link{predict.roben}} for new observations.
 \cr
 
 Users can modify the hyper-parameters by providing a named list of hyper-parameters via the argument `hyper'.
@@ -86,7 +87,7 @@ iter=5000
 fit=roben(X, Y, E, clin, iterations = iter)
 fit$coefficient
 
-## Ture values of parameters of main G effects and interactions
+## True values of parameters of main G effects and interactions
 coeff$GE
 
 ## Compute TP and FP

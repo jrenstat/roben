@@ -36,6 +36,7 @@
 #' \cr
 #'
 #' Both \eqn{X} and \eqn{E} will be centered before the generation of interaction terms, in order to prevent the multicollinearity between main effects and interaction terms.
+#' The centering values are stored in the fitted object and reused by \code{\link{predict.roben}} for new observations.
 #' \cr
 #'
 #' Users can modify the hyper-parameters by providing a named list of hyper-parameters via the argument `hyper'.
@@ -58,7 +59,7 @@
 #' fit=roben(X, Y, E, clin, iterations = iter)
 #' fit$coefficient
 #'
-#' ## Ture values of parameters of main G effects and interactions
+#' ## True values of parameters of main G effects and interactions
 #' coeff$GE
 #'
 #' ## Compute TP and FP
@@ -152,7 +153,7 @@ roben <- function(X, Y, E, clin=NULL, iterations=10000, burn.in=NULL, robust=TRU
 
   coefficient = list(Int=Int, clin=coeff.clin, E=coeff.E, GE=coeff.GE)
 
-  fit = list(call = this.call, posterior = out, coefficient=coefficient, burn.in = BI, iterations=iterations, design=list(xx=xx, CLC=CLC))
+  fit = list(call = this.call, posterior = out, coefficient=coefficient, burn.in = BI, iterations=iterations, design=list(xx=xx, CLC=CLC, centers=dat$centers))
 
   # if(debugging && sparse) fit$debugList = out$debugList;
   class(fit)=c("roben", class(out))

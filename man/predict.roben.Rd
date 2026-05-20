@@ -31,6 +31,7 @@ make predictions from a roben object
 X.new (E.new) must have the same number of columns as X (E) used for fitting the model. If clin was provided when fit the model, clin.new
 must not be NULL, and vice versa. The predictions are made based on the posterior estimates of coefficients in the roben object.
 Note that the main effects of environmental exposures E are not subject to selection.
+The centering values learned while fitting the model are reused for X.new and E.new.
 
 If Y.new is provided, the prediction error will be computed. For robust methods, the prediction mean absolute deviations (PMAD) will be computed.
 For non-robust methods, the prediction mean squared error (PMSE) will be computed.

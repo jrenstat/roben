@@ -58,8 +58,8 @@ Wu, C., Zhong, P.S., and Cui, Y. (2013). High dimensional variable selection for
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/jrhub/roben}
-  \item Report bugs at \url{https://github.com/jrhub/roben/issues}
+  \item \url{https://github.com/jrenstat/roben}
+  \item Report bugs at \url{https://github.com/jrenstat/roben/issues}
 }
 
 
@@ -70,6 +70,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Jie Ren \email{renjie0910@gmail.com}
   \item Fei Zhou
   \item Xiaoxi Li
   \item Cen Wu

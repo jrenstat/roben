@@ -26,5 +26,6 @@ test_that("check design matrix", {
   expect_equal(dat$xx[,3], X[,1]*E[,2])
   expect_equal(dat$xx[,size+1], X[,2])
   expect_equal(dat$xx[,size+2], X[,2]*E[,1])
+  expect_equal(dat$centers$X, attr(scale(X, center=TRUE, scale=FALSE), "scaled:center"))
+  expect_equal(dat$centers$E, attr(scale(E, center=TRUE, scale=FALSE), "scaled:center"))
 })
-

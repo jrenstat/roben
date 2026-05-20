@@ -1,6 +1,3 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # roben
 
 > **Ro**bust **B**ayesian Variable Selection for Gene-**en**vironment
@@ -13,8 +10,8 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/roben)](https://CRAN.R-project.org/package=roben)
 [![Codecov test
-coverage](https://codecov.io/gh/jrhub/roben/branch/master/graph/badge.svg)](https://app.codecov.io/gh/jrhub/roben?branch=master)
-[![R-CMD-check](https://github.com/jrhub/roben/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jrhub/roben/actions/workflows/R-CMD-check.yaml)
+coverage](https://codecov.io/gh/jrenstat/roben/branch/master/graph/badge.svg)](https://app.codecov.io/gh/jrenstat/roben?branch=master)
+[![R-CMD-check](https://github.com/jrenstat/roben/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jrenstat/roben/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Gene-environment (G×E) interactions have important implications to
@@ -41,7 +38,7 @@ implemented in C++.
 <!-- -->
 
     install.packages("devtools")
-    devtools::install_github("jrhub/roben") #v0.1.2
+    devtools::install_github("jrenstat/roben")
 
 - Released versions of roben are available on CRAN
   [(link)](https://cran.r-project.org/package=roben), and can be
@@ -62,7 +59,7 @@ implemented in C++.
     fit=roben(X, Y, E, clin, iterations = iter)
     fit$coefficient
 
-    ## Ture values of parameters of mian G effects and interactions
+    ## True values of parameters of main G effects and interactions
     coeff$GE
 
     ## Compute TP and FP
@@ -80,19 +77,6 @@ implemented in C++.
     tp = length(intersect(which(coeff$GE != 0), pos))
     fp = length(pos) - tp
     list(tp=tp, fp=fp)
-
-<!-- #### Example.3 (non-sparse) -->
-<!-- ``` -->
-<!-- data(gExp.L) -->
-<!-- test = sample((1:nrow(X2)), floor(nrow(X2)/5)) -->
-<!-- spbayes=BVCfit(X2[-test,], Y2[-test,], Z2[-test,], E2[-test,], clin2[-test,], structural=TRUE, sparse=FALSE) -->
-<!-- spbayes -->
-<!-- selected = BVSelection(spbayes) -->
-<!-- selected -->
-<!-- pred = predict(spbayes, X2[test,], Z2[test,], E2[test,], clin2[test,], Y2[test,]) -->
-<!-- pred$pmse -->
-<!-- # c(pred$y.pred) -->
-<!-- ``` -->
 
 ## Methods
 

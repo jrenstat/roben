@@ -12,6 +12,7 @@
 #' @details X.new (E.new) must have the same number of columns as X (E) used for fitting the model. If clin was provided when fit the model, clin.new
 #' must not be NULL, and vice versa. The predictions are made based on the posterior estimates of coefficients in the roben object.
 #' Note that the main effects of environmental exposures E are not subject to selection.
+#' The centering values learned while fitting the model are reused for X.new and E.new.
 #'
 #' If Y.new is provided, the prediction error will be computed. For robust methods, the prediction mean absolute deviations (PMAD) will be computed.
 #' For non-robust methods, the prediction mean squared error (PMSE) will be computed.
@@ -34,7 +35,15 @@
 predict.roben=function(object, X.new, E.new, clin.new=NULL, Y.new=NULL, ...){
 
   intercept = TRUE
-  dat = Data.matrix(X.new, Y.new, E.new, clin.new, intercept)
+  centers = object$design$centers
+  if(!is.null(centers$X) && ncol(as.matrix(X.new)) != length(centers$X)){
+    stop(paste("number of columns of X.new does not match the length of the estimates."))
+  }
+  if(!is.null(centers$E) && !is.null(E.new) && ncol(as.matrix(E.new)) != length(centers$E)){
+    stop(paste("number of columns of E.new does not match the length of the estimates."))
+  }
+
+  dat = Data.matrix(X.new, Y.new, E.new, clin.new, intercept, center=centers)
   xx = dat$xx
   y.new = dat$y
   CLC = dat$CLC
@@ -43,7 +52,7 @@ predict.roben=function(object, X.new, E.new, clin.new=NULL, Y.new=NULL, ...){
   coeff.clc = c(object$coefficient$Int, object$coefficient$clin, object$coefficient$E)
 
   if(length(coeff)!=ncol(xx)){
-    stop(paste("number of columns of X.new dose not match the length of the estimates."))
+    stop(paste("number of columns of X.new does not match the length of the estimates."))
   }
 
   if(length(coeff.clc)!=ncol(CLC)){
@@ -53,19 +62,17 @@ predict.roben=function(object, X.new, E.new, clin.new=NULL, Y.new=NULL, ...){
   y.pred = xx %*% coeff + CLC %*% coeff.clc
   error = NULL
 
-  if(inherits(object, "RBVS")){
-    error = sum(abs(y.new - y.pred))/length(y.new)
-    # error.type = "PMAD"
-    names(error) = "PMAD"
-  }else{
-    error = sum((y.new - y.pred)^2)/length(y.new)
-    # error.type = "PMSE"
-    names(error) = "PMSE"
+  if(!is.null(y.new)){
+    if(inherits(object, "RBVS")){
+      error = sum(abs(y.new - y.pred))/length(y.new)
+      names(error) = "PMAD"
+    }else{
+      error = sum((y.new - y.pred)^2)/length(y.new)
+      names(error) = "PMSE"
+    }
   }
 
   pred = list(error=error, y.pred=y.pred)
   class(pred) = "roben.pred"
   pred
 }
-
-

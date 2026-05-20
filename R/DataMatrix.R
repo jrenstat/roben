@@ -1,4 +1,4 @@
-Data.matrix <- function(X, Y=NULL, E, clin=NULL, intercept=TRUE, debugging=FALSE)
+Data.matrix <- function(X, Y=NULL, E, clin=NULL, intercept=TRUE, debugging=FALSE, center=NULL)
 {
   x = as.matrix(X); y = cbind(Y)
   n = nrow(x); s = ncol(x)
@@ -8,7 +8,8 @@ Data.matrix <- function(X, Y=NULL, E, clin=NULL, intercept=TRUE, debugging=FALSE
   clin.names = E.names = G.names = NULL
   size = 1
 
-  x = scale(x, center = TRUE, scale=FALSE)
+  x.center = if(is.null(center$X)) TRUE else center$X
+  x = scale(x, center = x.center, scale=FALSE)
 
   if(!is.null(y)){
     if(nrow(y) != n)  stop("Length of Y does not match the number of rows of X.");
@@ -30,7 +31,8 @@ Data.matrix <- function(X, Y=NULL, E, clin=NULL, intercept=TRUE, debugging=FALSE
 
   if(!is.null(E)){
     E = as.matrix(E);env = ncol(E)
-    E = scale(E, center = TRUE, scale=FALSE)
+    E.center = if(is.null(center$E)) TRUE else center$E
+    E = scale(E, center = E.center, scale=FALSE)
     if(nrow(E) != n)  stop("E has a different number of rows than X.");
     if(is.null(colnames(E))){colnames(E)=paste("E", 1:env, sep="")}
     E.names = colnames(E)
@@ -59,5 +61,7 @@ Data.matrix <- function(X, Y=NULL, E, clin=NULL, intercept=TRUE, debugging=FALSE
     xx = x
   }
 
-  list(xx=xx, y=y, CLC=CLC, n=n, s=s, env=env, size=size, G.names=G.names, E.names=E.names, clin.names=clin.names)
+  centers = list(X=attr(x, "scaled:center"), E=attr(E, "scaled:center"))
+
+  list(xx=xx, y=y, CLC=CLC, n=n, s=s, env=env, size=size, G.names=G.names, E.names=E.names, clin.names=clin.names, centers=centers)
 }
