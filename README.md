@@ -12,6 +12,7 @@ status](https://www.r-pkg.org/badges/version/roben)](https://CRAN.R-project.org/
 [![Codecov test
 coverage](https://codecov.io/gh/jrenstat/roben/branch/master/graph/badge.svg)](https://app.codecov.io/gh/jrenstat/roben?branch=master)
 [![R-CMD-check](https://github.com/jrenstat/roben/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master)](https://github.com/jrenstat/roben/actions/workflows/R-CMD-check.yaml)
+[![test-coverage](https://github.com/jrenstat/roben/actions/workflows/test-coverage.yaml/badge.svg?branch=master)](https://github.com/jrenstat/roben/actions/workflows/test-coverage.yaml)
 <!-- badges: end -->
 
 Gene-environment (G×E) interactions have important implications to
